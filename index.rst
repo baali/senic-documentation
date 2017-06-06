@@ -27,3 +27,6 @@ senicOS
 =======
 
 *senicOS* is a custom linux distribution that powers the hub.
+
+
+.. include:: senic-os/README.rst
