@@ -52,7 +52,7 @@ Operating System: Linux
    :width: 100 px
    :height: 118 px
 
-For the Senic Hub, we wanted to use the open-source systems as much as possible. Linux is a great open-source operating system. We chose it because it’s considered very stable and has support for various hardware platforms that are important to most of our developers and users. We’re using the latest Linux Kernel 4.10 and building our own distribution to have full control over which tools become part of the Linux subsystem. Having as few as possible tools running lets us reduce the amount of moving the parts and thus achieve a high system availability.
+For the Senic Hub, we wanted to use the open-source systems as much as possible. Linux is a great open-source operating system. We chose it because it’s considered very stable and has support for various hardware platforms that are important to most of our developers and users. We’re using the latest Linux Kernel 4.10 and building our own distribution to have full control over which tools become part of the Linux subsystem. Having as few as possible tools running lets us reduce the amount of moving the parts and thus achieve a higher system availability.
 
 
 Home Controlling and Automation: Home Assistant
@@ -63,7 +63,7 @@ Home Controlling and Automation: Home Assistant
    :width: 90 px
    :height: 90 px
 
-Despite being a new market, smart home is already seeing tons of different connected devices such as speakers, light, switches, thermostats or electronic door locks from thousands of companies. The issue of the industry, is that each of the device is using different communication channels and different protocols. Keeping up with the shear volume of new smart devices being launched is nearly impossible without a strong developer community. `Home Assistant <https://home-assistant.io>`_ has exactly that, it has a massive number of devices that are supporter and a large developer community who add, contribute and improve the support for various smart devices.
+Despite being a new market, smart home is already seeing tons of different connected devices such as speakers, light, switches, thermostats or electronic door locks from thousands of companies. The issue of the industry, is that each of the device is using different communication channels and different protocols. Keeping up with the sheer volume of new smart devices being launched is nearly impossible without a strong developer community. `Home Assistant <https://home-assistant.io>`_ has exactly that, it has a massive number of devices that are supported and a large developer community who add, contribute and improve the support for various smart devices.
 
 
 Programming Language: Python
@@ -74,7 +74,7 @@ Programming Language: Python
    :width: 115 px
    :height: 112 px
 
-Why did we decide Python was the right programming language for the Hub? A better question might be: Why shouldn’t we use Python? If you take a deep dive into the open-source smart home world, you will find a number of do-it-yourself projects and Python is often the language of choice for these DIYers. This adoption of Python is primarily due to the shear number of readymade libraries and Python’s omnipresent availability for many different operating systems. In addition, Python is an easy to learn and extremely powerful and expressive as a programming language. The Python ecosystem has already been adopted by `more than 2 million developers <https://blog.pythonanywhere.com/67/>`_.
+Why did we decide that Python was the right programming language for the Hub? A better question might be: Why shouldn’t we use Python? If you take a deep dive into the open-source smart home world, you will find a number of do-it-yourself projects and Python is often the language of choice for these DIYers. This adoption of Python is primarily due to the sheer number of readymade libraries and Python’s omnipresent availability for many different operating systems. In addition, Python is an easy to learn and extremely powerful and expressive as a programming language. The Python ecosystem has already been adopted by `more than 2 million developers <https://blog.pythonanywhere.com/67/>`_.
 
 
 Developing for the Senic Hub
