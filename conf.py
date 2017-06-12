@@ -20,3 +20,7 @@ autodoc_member_order = 'bysource'
 project = 'Senic Developer Documentation'
 copyright = '2017'
 version = release = "0.0.0"
+
+# theme setup
+html_theme = "senic"
+html_theme_path = ["./themes"]
