@@ -1,4 +1,4 @@
-.. _index:
+.. _main_index:
 
 *********************************
 Senic Hub Technical Documentation
