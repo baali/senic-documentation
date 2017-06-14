@@ -11,18 +11,21 @@ Senic Hub Technical Documentation
 What is the Senic Hub
 =====================
 
-The Senic Hub is a Bluetooth Low Energy and Wi-Fi-enabled smart home hub that allows a user to connect to their smart devices (such as Sonos, Philips Hue etc).
-It also works together with the Senic Nuimo, a bluetooth controller for smart devices.
-The software for the Senic Hub builts on top of many great open source projects.
+The Senic Hub is a **Bluetooth Low Energy and Wi-Fi-enabled smart home hub** that allows a user to connect to their smart devices (such as Sonos, Philips Hue etc).
+It also works together with the `Senic Nuimo <https://www.senic.com/en/nuimo>`_, our very own bluetooth controller for smart devices and significantly extends its usefulness by eliminating the need to having it connected to a smart phone or tablet.
+
+.. pull-quote::
+
+    The software stack powering the hub is not only entirely built on many great open source projects (surprise!) but we also decided to open up our own stack from the very start -- and this here is its documentation.
+
 
 
 Why We Built the Senic Hub
 ==========================
 
-The `Senic Hub <http://blog.senic.com/posts/what-were-building-next>`_ is the first major step in Senic’s vision to make technology that is `not focused on ‘stickiness’ <http://blog.senic.com/posts/the-problem-of-attention>`_ but on `well being for the human <http://blog.senic.com/posts/design-for-wellbeing>`_.
-At Senic, we see a massive problem of companies creating apps and products that try to optimize the use time and amount of attention.
-Instead we would like to promote wellbeing by creating connected devices, experiences, interfaces and systems that provide the user with seamless technological experiences.
-Our software is built on top of an open source platform in order to allow third party developers, other companies and user to see our code base and contribute.
+The `Senic Hub <http://blog.senic.com/posts/what-were-building-next>`_ is the first major step in Senic’s vision to make technology that is `not focused on ‘stickiness’ <http://blog.senic.com/posts/the-problem-of-attention>`_ but on `wellbeing for the human <http://blog.senic.com/posts/design-for-wellbeing>`_.
+At Senic, we see a big problem in companies creating apps and products that try to maximize the time that their users spent engaged with them.
+Instead we would like to promote wellbeing by creating connected devices, experiences, interfaces and systems that provide users with seamless technological experiences, without constantly demanding or even just encouraging their attention or focus.
 
 
 System Overview
@@ -32,25 +35,32 @@ System Overview
    :scale: 80 %
 
 
-Technical Details
-=================
-
-To build the Senic Hub for ease-of-use, programmability and updatability and also power, we made many technical decisions.
-Some decisions were right clear from the beginning, while others required a thorough understanding of what our smart home users need and what we can build with fairly limited resources of a startup.
-To outline our core reasoning behind these decisions, we would like to share some of the key insights, requirements and learnings so far.
+Decisions, decisions...
+=======================
 
 
-Hardware Platform: Nano Pi Neo
-------------------------------
+When initially brainstorming how to build such a product we knew we would need to make it unobtrusive and easy to use but also easy to develop for and easy to keep up-to-date so we were confronted very early on with many important technical decisions.
+Some of these decisions were pretty clear or self-evident from the beginning, while others required a thorough understanding of both what our smart home users actually need but also what we are able to build with the fairly limited resources of a small startup.
+So before we dive into the details of *how* we ended up doing these things, we would like to take the time and outline our reasoning behind some of these decisions and key insights, requirements and learnings.
+
+
+Hardware Platform: NanoPi Neo
+-----------------------------
 
 .. image:: nanopi-neo.png
    :align: right
    :width: 103 px
    :height: 92 px
 
-The Senic Hub is powered by a `Nano Pi Air <http://wiki.friendlyarm.com/wiki/index.php/NanoPi_NEO>`_, a tiny but powerful single board computer equipped with an Allwinner H3 CPU and 512 MB DDR3 RAM.
-We not only pack it with a 2 GB high speed memory card that stores our operating system and software stack.
-We also extend it with high class Wi-Fi and Bluetooth 4.0 dongles to provide the best wireless connectivity.
+The Senic Hub is powered by the `NanoPi Neo <http://wiki.friendlyarm.com/wiki/index.php/NanoPi_NEO>`_, a tiny (4x4 cm) but powerful single-board computer equipped with an Allwinner H3 Quad-core 1.2GHz CPU and 512 MB DDR3 RAM.
+
+One of the most decisive factors in favour of this board was its low price.
+The other is the fact that it is actually *designed to be included in a product* -- unlike, say, more commonly known, *fruit-flavoured boards* such as the raspberry PI etc. which are explicitly targetted at hobbyists and students to experiment with.
+
+However, we found that satisfactory runtime stability, heat dissipation etc. were basically not achievable with those offerings.
+
+We ship it with a 2 GB high-speed memory card that stores the operating system, software stack and user data.
+More importantly, we extend it with `carefully chosen <https://github.com/getsenic/wifi-ble-link-quality-benchmark>`_ high class **Wi-Fi and Bluetooth 4.0 dongles** to provide the best possible wireless connectivity within the given physical restraints.
 
 
 Operating System: Linux
@@ -61,25 +71,22 @@ Operating System: Linux
    :width: 100 px
    :height: 118 px
 
-For the Senic Hub, we wanted to use the open-source systems as much as possible.
-Linux is a great open-source operating system.
-We chose it because it’s considered very stable and has support for various hardware platforms that are important to most of our developers and users.
-We’re using the latest Linux Kernel 4.10 and building our own distribution to have full control over which tools become part of the Linux subsystem.
-Having as few as possible tools running lets us reduce the amount of moving the parts and thus achieve a higher system availability.
+For the Senic Hub, we wanted to use open-source components as much as possible, not just because we ourselves are avid users of and even contributors to `Free and Open-Source Software <https://en.wikipedia.org/wiki/Free_and_open-source_software>`_.
+We also wouldn't be able to stand behind a product that runs 24/7 in the homes and workplaces of our users and which contains proprietary code whose actual workings could not be verified by ourselves or third parties.
 
+.. note::
 
-Home Controlling and Automation: Home Assistant
------------------------------------------------
+    During our evaluation phase we also considered using one of the many BSD flavours, specifically `FreeBSD <https://www.freebsd.org/>`_ because it has a proven track record in the area of stability and security plus a long history of running on the tiniest of platforms long before the term "Internet of Things" was even coined.
+    We did however find that while the `H3 is pretty well supported <https://wiki.freebsd.org/FreeBSD/arm/Allwinner>`_, support for bluetooth is lagging behind and in the case of BLE currently non-existent and so we abandoned that approach.
 
-.. image:: home-assistant.png
-   :align: right
-   :width: 90 px
-   :height: 90 px
+This pretty much left us with Linux which offers a much broader support for such types of boards, most notably including BLE.
 
-Despite being a new market, smart home is already seeing tons of different connected devices such as speakers, light, switches, thermostats or electronic door locks from thousands of companies.
-The issue of the industry, is that each of the device is using different communication channels and different protocols.
-Keeping up with the sheer volume of new smart devices being launched is nearly impossible without a strong developer community.
-`Home Assistant <https://home-assistant.io>`_ has exactly that, it has a massive number of devices that are supported and a large developer community who add, contribute and improve the support for various smart devices.
+The NanoPi itself comes with `various flavours of Linux <http://wiki.friendlyarm.com/wiki/index.php/NanoPi_NEO#Software_Features>`_, however, even the "light" versions weigh in with 400Mb and they all are geared toward end users who wish to use this platform as their personal development or experimentation field.
+
+In the end we opted for building our own custom distribution using the well-established `yocto project <https://www.yoctoproject.org/>`_.
+This allows us to create a fine-tuned distribution without having to start from scratch and importantly we can still benefit from upstream mainline updates, be they security related, performance wise or new features.
+
+Also, reducing the amount of code on the system as well as the number of running processes significantly reduces the attack surface for malware -- we definitely want to do all we can to avoid the Senic Hub becoming part of the next botnet!
 
 
 Programming Language: Python
@@ -90,10 +97,35 @@ Programming Language: Python
    :width: 115 px
    :height: 112 px
 
-Why did we decide that Python was the right programming language for the Hub? A better question might be: Why shouldn’t we use Python? If you take a deep dive into the open-source smart home world, you will find a number of do-it-yourself projects and Python is often the language of choice for these DIYers.
-This adoption of Python is primarily due to the sheer number of readymade libraries and Python’s omnipresent availability for many different operating systems.
+Why did we decide that Python was the right programming language for the Hub?
+Actually, a better question might be: Why *shouldn’t* we use Python?
+If you take a deep dive into the open-source smart home world, you will find a number of do-it-yourself projects and Python is often the language of choice for these DIYers.
+This adoption of Python is primarily due to the sheer number of ready-made libraries and Python’s availability for many different operating systems.
+
 In addition, Python is an easy to learn and extremely powerful and expressive as a programming language.
-The Python ecosystem has already been adopted by `more than 2 million developers <https://blog.pythonanywhere.com/67/>`_.
+The Python programming language is currently (as of June 2017) the `fourth most popular programming language in the world <https://www.tiobe.com/tiobe-index/>`_.
+In the end it was important for us, to not just select a programming language that *we* were comfortable with but also for a significant amount of other people who then could contribute or simply hack the device or easily learn how to do so.
+
+
+Home Controlling and Automation: Home Assistant
+-----------------------------------------------
+
+.. image:: home-assistant.png
+   :align: right
+   :width: 90 px
+   :height: 90 px
+
+Despite being a relatively new market, the *smart home* is already seeing tons of different connected devices such as speakers, light, switches, thermostats or electronic door locks from thousands of companies.
+The elephant in the room, though, is that each of these devices is using different communication channels and protocols.
+Keeping up with the sheer volume of new smart devices being launched is nearly impossible without a strong developer community.
+
+`Home Assistant <https://home-assistant.io>`_ has exactly that.
+It supports a massive number of devices and has established a large community of developers who contribute and improve the support for various smart devices.
+
+One of the reasons it *can* support such a large number is its extremely well thought-out *modular structure*.
+One of its core modules is a sophisticated *event model* and *state machine* that we can conveniently use for our own needs without having to re-invent the wheel.
+
+Oh, and it, too, is written in Python.
 
 
 Developing for the Senic Hub
