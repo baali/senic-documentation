@@ -15,6 +15,7 @@ pygments_style = 'sphinx'
 html_last_updated_fmt = '%b %d, %Y'
 todo_include_todos = True
 autodoc_member_order = 'bysource'
+exclude_patterns = ['**/.repo', '**/lib']
 
 # general substitutions
 project = 'Senic Developer Documentation'
