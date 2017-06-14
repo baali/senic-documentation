@@ -128,7 +128,13 @@ One of its core modules is a sophisticated *event model* and *state machine* tha
 Oh, and it, too, is written in Python.
 
 
-Developing for the Senic Hub
-============================
+Details, details
+================
 
-Details coming soon for Senic Hub launch on June 20th.
+Below you can find links to the nitty-gritty details
+
+.. toctree::
+    :maxdepth: 3
+
+    senic-hub/index
+    senic-os/README
