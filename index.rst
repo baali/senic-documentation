@@ -128,6 +128,12 @@ One of its core modules is a sophisticated *event model* and *state machine* tha
 Oh, and it, too, is written in Python.
 
 
+Speech: Alexa Voice Service
+---------------------------
+
+For speech interface, we are using `Alexa Device SDK <https://github.com/alexa/avs-device-sdk>`_. The SDK itself is under active development and they are still adding features to it. Currently our stack uses `PortAudio <http://portaudio.com/>`_ for to capture audio, we then push the data to `AVS<https://developer.amazon.com/alexa-voice-service>`_ and eventually the response gets played using `GStreamer library<https://gstreamer.freedesktop.org/>`_.
+
+
 Details, details
 ================
 
